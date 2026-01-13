@@ -1,5 +1,5 @@
 import gigRepository from '../repositories/gig.repository.js';
-import CustomError from '../utils/CustomError.js';
+import {CustomError} from '../utils/CustomError.js';
 import { GIG_STATUS } from '../config/constants.js';
 
 class GigService {

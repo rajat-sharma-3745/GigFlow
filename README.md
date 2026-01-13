@@ -83,3 +83,60 @@ npm start
 
 ### Server → Client
 - `notification` - Real-time notification event
+
+
+## 2.GigFlow Frontend
+
+Modern, responsive React frontend for the GigFlow freelance marketplace.
+
+## Features
+
+✅ Modern UI with Tailwind CSS\
+✅ Responsive design (mobile, tablet, desktop)\
+✅ Real-time notifications with Socket.io\
+✅ Context API for state management\
+✅ Toast notifications\
+✅ Protected routes\
+✅ Clean component architecture\
+
+## Installation
+
+1. Install dependencies
+```bash
+npm install
+```
+
+2. Create `.env` file
+```bash
+cp .env.example .env
+```
+
+3. Start development server
+```bash
+npm run dev
+```
+
+4. Build for production
+```bash
+npm run build
+```
+
+## Project Structure
+
+- `/src/api` - API service layers
+- `/src/components` - Reusable components
+- `/src/context` - Context providers
+- `/src/hooks` - Custom hooks
+- `/src/pages` - Page components
+- `/src/utils` - Utility functions
+
+## Technologies
+
+- React 18
+- Vite
+- Tailwind CSS
+- React Router v6
+- Socket.io Client
+- Axios
+- Lucide React (icons)
+````

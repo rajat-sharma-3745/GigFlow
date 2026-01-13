@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import { SOCKET_URL } from '../utils/constants';
+import { API_URL } from '../utils/constants';
 import { useAuth } from '../hooks/useAuth';
 
 export const SocketContext = createContext();
@@ -12,13 +12,9 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      const token = localStorage.getItem('user') 
-        ? JSON.parse(localStorage.getItem('user')).token 
-        : null;
+     
 
-      const newSocket = io(SOCKET_URL, {
-        auth: { token }
-      });
+      const newSocket = io(API_URL, { withCredentials: true });
 
       newSocket.on('connect', () => {
         console.log('Socket connected');

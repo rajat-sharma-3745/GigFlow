@@ -1,4 +1,4 @@
-import asyncHandler from '../utils/asyncHandler.js';
+import {asyncHandler} from '../utils/asyncHandler.js';
 import authService from '../services/auth.service.js';
 import { setTokenCookie, clearTokenCookie } from '../utils/jwt.js';
 import { registerSchema, loginSchema } from '../utils/validators.js';

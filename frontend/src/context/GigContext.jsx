@@ -6,14 +6,10 @@ export const GigContext = createContext();
 export const GigProvider = ({ children }) => {
   const [gigs, setGigs] = useState([]);
   const [userGigs, setUserGigs] = useState([]);
-  const [loading, setLoading] = useState({
-    all: false,
-    user: false,
-    create: false,
-  });
+  const [loading, setLoading] = useState(false);
 
   const fetchGigs = async (search = "") => {
-    setLoading({ ...loading, all: true });
+    setLoading(true);
     try {
       const data = await gigAPI.getAllGigs(search);
       setGigs(data.data.gigs);
@@ -21,12 +17,12 @@ export const GigProvider = ({ children }) => {
       console.error("Failed to fetch gigs:", error);
       throw error;
     } finally {
-      setLoading({ ...loading, all: false });
+      setLoading(false);
     }
   };
 
   const fetchUserGigs = async () => {
-    setLoading({ ...loading, user: true });
+    setLoading(true);
     try {
       const data = await gigAPI.getUserGigs();
       setUserGigs(data.data.gigs);
@@ -34,12 +30,11 @@ export const GigProvider = ({ children }) => {
       console.error("Failed to fetch user gigs:", error);
       throw error;
     } finally {
-      setLoading({ ...loading, user: false });
+      setLoading(false);
     }
   };
 
   const createGig = async (gigData) => {
-    setLoading({ ...loading, create: true });
 
     try {
       const data = await gigAPI.createGig(gigData);
@@ -48,9 +43,7 @@ export const GigProvider = ({ children }) => {
     } catch (error) {
       console.error("Failed to create gig:", error);
       throw error;
-    } finally {
-      setLoading({ ...loading, create: false });
-    }
+    } 
   };
 
   return (

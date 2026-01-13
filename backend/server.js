@@ -5,8 +5,8 @@ import authRoutes from './routes/auth.routes.js';
 import gigRoutes from './routes/gig.routes.js';
 import bidRoutes from './routes/bid.routes.js';
 import notificationRoutes from './routes/notification.routes.js';
-import errorMiddleware from './middleware/error.middleware.js';
-import CustomError from './utils/CustomError.js';
+import errorMiddleware from './middlewares/error.js';
+import {CustomError} from './utils/CustomError.js';
 import { createServer } from 'http';
 import connectDB from './config/db.js';
 import { initializeSocket } from './config/socket.js';
@@ -33,8 +33,8 @@ app.use('/api/gigs', gigRoutes);
 app.use('/api/bids', bidRoutes);
 app.use('/api/notifications', notificationRoutes);
 
-app.all('*', (req, res, next) => {
-    next(new CustomError(`Route ${req.originalUrl} not found`, 404));
+app.use((req, res, next) => {
+    return next(new CustomError(`Route ${req.originalUrl} not found`, 404));
 });
 
 app.use(errorMiddleware);

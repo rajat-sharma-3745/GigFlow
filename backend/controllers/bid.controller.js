@@ -1,4 +1,4 @@
-import asyncHandler from '../middleware/asyncHandler.js';
+import {asyncHandler} from '../utils/asyncHandler.js';
 import bidService from '../services/bid.service.js';
 import { bidSchema } from '../utils/validators.js';
 

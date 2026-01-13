@@ -1,5 +1,7 @@
 import { Server } from 'socket.io';
-import { verifyToken } from '../utils/jwt.utils.js';
+import { verifyToken } from '../utils/jwt.js';
+import cookieParser from 'cookie-parser';
+import { socketAuth } from '../middlewares/auth.js';
 
 let io;
 
@@ -12,19 +14,9 @@ export const initializeSocket = (server) => {
   });
 
   io.use((socket, next) => {
-    const token = socket.handshake.auth.token;
-
-    if (!token) {
-      return next(new Error('Authentication error'));
-    }
-
-    try {
-      const decoded = verifyToken(token);
-      socket.userId = decoded.id;
-      next();
-    } catch (error) {
-      next(new Error('Authentication error'));
-    }
+    cookieParser()(socket.request, socket.request.res, async (err) => {
+        await socketAuth(err, socket, next);
+    })
   });
 
   io.on('connection', (socket) => {

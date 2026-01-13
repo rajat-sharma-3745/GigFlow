@@ -5,7 +5,7 @@ import {
   getUserBids,
   hireBid
 } from '../controllers/bid.controller.js';
-import { protect } from '../middleware/auth.middleware.js';
+import { protect } from '../middlewares/auth.js';
 
 const router = express.Router();
 

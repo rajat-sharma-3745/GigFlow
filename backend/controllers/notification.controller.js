@@ -1,4 +1,4 @@
-import asyncHandler from '../middleware/asyncHandler.js';
+import {asyncHandler} from '../utils/asyncHandler.js';
 import notificationService from '../services/notification.service.js';
 
 export const getUserNotifications = asyncHandler(async (req, res) => {

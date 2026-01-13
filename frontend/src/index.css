@@ -69,7 +69,7 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-gradient-to-r from-primary-600 to-primary-700 text-white
+    @apply bg-linear-to-r from-primary-600 to-primary-700 text-white
            px-6 py-2.5 rounded-lg font-medium
            hover:from-primary-700 hover:to-primary-800
            transition-all duration-200

@@ -1,4 +1,4 @@
-import asyncHandler from '../middleware/asyncHandler.js';
+import {asyncHandler} from '../utils/asyncHandler.js';
 import gigService from '../services/gig.service.js';
 import { gigSchema } from '../utils/validators.js';
 

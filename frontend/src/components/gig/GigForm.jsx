@@ -84,7 +84,7 @@ const GigForm = ({ onSubmit, loading }) => {
       </div>
 
       <Input
-        label="Budget (USD)"
+        label="Budget (INR)"
         type="number"
         name="budget"
         value={formData.budget}
@@ -92,10 +92,10 @@ const GigForm = ({ onSubmit, loading }) => {
         error={errors.budget}
         placeholder="500"
         min="0"
-        step="0.01"
+        step="1"
       />
 
-      <Button type="submit" disabled={loading} className="w-full">
+      <Button type="submit" disabled={loading} className="w-full cursor-pointer">
         {loading ? 'Creating...' : 'Post Gig'}
       </Button>
     </form>

@@ -1,6 +1,6 @@
 import userRepository from '../repositories/user.repository.js';
-import CustomError from '../utils/CustomError.js';
-import { generateToken } from '../utils/jwt.utils.js';
+import {CustomError} from '../utils/CustomError.js';
+import { generateToken } from '../utils/jwt.js';
 
 class AuthService {
   async register(userData) {

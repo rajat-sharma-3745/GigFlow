@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import bidRepository from '../repositories/bid.repository.js';
 import gigRepository from '../repositories/gig.repository.js';
 import notificationService from './notification.service.js';
-import CustomError from '../utils/CustomError.js';
+import {CustomError} from '../utils/CustomError.js';
 import { GIG_STATUS, BID_STATUS, NOTIFICATION_TYPES } from '../config/constants.js';
 
 class BidService {
@@ -35,7 +35,7 @@ class BidService {
       freelancerId
     });
 
-    await notificationService.createNotification({
+    await notificationService.createAndEmitNotification({
       userId: gig.ownerId._id,
       type: NOTIFICATION_TYPES.BID_RECEIVED,
       title: 'New Bid Received',
@@ -65,7 +65,6 @@ class BidService {
     return await bidRepository.findByFreelancerId(freelancerId);
   }
 
-  // Hire with MongoDB Transaction to prevent race conditions
   async hireBid(bidId, userId) {
     const session = await mongoose.startSession();
     session.startTransaction();

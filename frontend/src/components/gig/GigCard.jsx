@@ -1,4 +1,4 @@
-import { Calendar, DollarSign, User } from 'lucide-react';
+import { Calendar, IndianRupee, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { formatCurrency, formatDate, truncateText } from '../../utils/helpers';
 
@@ -26,7 +26,7 @@ const GigCard = ({ gig }) => {
       <div className="flex items-center justify-between pt-4 border-t border-gray-100">
         <div className="flex items-center gap-4 text-sm text-gray-500">
           <div className="flex items-center gap-1">
-            <DollarSign className="w-4 h-4" />
+            <IndianRupee className="w-4 h-4" />
             <span className="font-medium text-gray-900">
               {formatCurrency(gig.budget)}
             </span>

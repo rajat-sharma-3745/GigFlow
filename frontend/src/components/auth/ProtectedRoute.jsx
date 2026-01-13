@@ -1,11 +1,19 @@
-import React from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
+import Loader from '../common/Loader';
 
-const ProtectedRoute = ({children,redirect='/auth',user}) => {
-  if(!user){
-    return <Navigate to={redirect} />
+const ProtectedRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <Loader fullScreen />;
   }
-  return children? children : <Outlet/>
-}
 
-export default ProtectedRoute
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+};
+
+export default ProtectedRoute;
