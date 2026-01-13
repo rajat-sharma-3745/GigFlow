@@ -68,7 +68,7 @@ const BidForm = ({ gigId, onSubmit, loading }) => {
       </div>
 
       <Input
-        label="Your Price (USD)"
+        label="Your Price (INR)"
         type="number"
         name="price"
         value={formData.price}
@@ -76,10 +76,10 @@ const BidForm = ({ gigId, onSubmit, loading }) => {
         error={errors.price}
         placeholder="450"
         min="0"
-        step="0.01"
+        step="1"
       />
 
-      <Button type="submit" disabled={loading} className="w-full">
+      <Button type="submit" disabled={loading} className="w-full cursor-pointer">
         {loading ? 'Submitting...' : 'Submit Bid'}
       </Button>
     </form>

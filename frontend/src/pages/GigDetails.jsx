@@ -89,7 +89,7 @@ const GigDetails = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <button
           onClick={() => navigate('/home')}
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors"
+          className="cursor-pointer flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
           Back to Gigs
@@ -121,7 +121,7 @@ const GigDetails = () => {
           </div>
 
           <div className="flex items-center gap-2 pt-6 border-t border-gray-200">
-            <IndianRupee className="w-5 h-5 text-primary-600" />
+            {/* <IndianRupee className="w-5 h-5 text-primary-600" /> */}
             <span className="text-2xl font-bold text-gray-900">
               {formatCurrency(gig.budget)}
             </span>
@@ -141,7 +141,7 @@ const GigDetails = () => {
                   <Button
                     variant="secondary"
                     onClick={() => setShowBidForm(false)}
-                    className="mt-4 w-full"
+                    className="mt-4 w-full cursor-pointer"
                   >
                     Cancel
                   </Button>

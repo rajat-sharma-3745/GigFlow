@@ -26,7 +26,7 @@ const BidCard = ({ bid, onHire, isOwner, loading }) => {
       <div className="flex items-center justify-between pt-4 border-t border-gray-100">
         <div className="flex items-center gap-4 text-sm text-gray-500">
           <div className="flex items-center gap-1">
-            <IndianRupee className="w-4 h-4" />
+            {/* <IndianRupee className="w-4 h-4" /> */}
             <span className="font-medium text-gray-900">
               {formatCurrency(bid.price)}
             </span>
