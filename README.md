@@ -29,7 +29,7 @@ A full-stack freelance marketplace backend with real-time notifications and tran
 
 1. Clone the repository
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/rajat-sharma-3745/GigFlow.git
 cd backend
 ```
 
