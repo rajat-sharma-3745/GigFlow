@@ -1,19 +1,23 @@
-import { useEffect, useState, useContext } from 'react';
-import { Briefcase, Send, CheckCircle } from 'lucide-react';
-import { GigContext } from '../context/GigContext';
-import { bidAPI } from '../api/bid.api';
-import { useToast } from '../hooks/useToast';
-import GigCard from '../components/gig/GigCard';
-import BidCard from '../components/bid/BidCard';
-import Loader from '../components/common/Loader';
-import { TOAST_TYPES } from '../utils/constants';
+import { useEffect, useState, useContext } from "react";
+import { Briefcase, Send, CheckCircle } from "lucide-react";
+import { GigContext } from "../context/GigContext";
+import { bidAPI } from "../api/bid.api";
+import { useToast } from "../hooks/useToast";
+import GigCard from "../components/gig/GigCard";
+import BidCard from "../components/bid/BidCard";
+import Loader from "../components/common/Loader";
+import { TOAST_TYPES } from "../utils/constants";
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const { userGigs, fetchUserGigs } = useContext(GigContext);
   const { showToast } = useToast();
+  const { setUser } = useAuth();
   const [myBids, setMyBids] = useState([]);
-  const [activeTab, setActiveTab] = useState('my-gigs');
+  const [activeTab, setActiveTab] = useState("my-gigs");
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -26,15 +30,26 @@ const Dashboard = () => {
       const bidsData = await bidAPI.getUserBids();
       setMyBids(bidsData.data.bids);
     } catch (error) {
-      showToast(error.message || 'Failed to fetch data', TOAST_TYPES.ERROR);
+      showToast(error.message || "Failed to fetch data", TOAST_TYPES.ERROR);
+      if (error.response?.status === 401) {
+        await authAPI.logout();
+        setUser(null);
+        localStorage.removeItem("user");
+        navigate("/");
+      }
     } finally {
       setLoading(false);
     }
   };
 
   const tabs = [
-    { id: 'my-gigs', label: 'My Gigs', icon: Briefcase, count: userGigs.length },
-    { id: 'my-bids', label: 'My Bids', icon: Send, count: myBids.length },
+    {
+      id: "my-gigs",
+      label: "My Gigs",
+      icon: Briefcase,
+      count: userGigs.length,
+    },
+    { id: "my-bids", label: "My Bids", icon: Send, count: myBids.length },
   ];
 
   const renderContent = () => {
@@ -42,11 +57,13 @@ const Dashboard = () => {
       return <Loader />;
     }
 
-    if (activeTab === 'my-gigs') {
+    if (activeTab === "my-gigs") {
       return userGigs.length === 0 ? (
         <div className="text-center py-16">
           <Briefcase className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500 text-lg">You haven't posted any gigs yet</p>
+          <p className="text-gray-500 text-lg">
+            You haven't posted any gigs yet
+          </p>
           <p className="text-gray-400 mt-2">Start by posting your first gig!</p>
         </div>
       ) : (
@@ -58,11 +75,13 @@ const Dashboard = () => {
       );
     }
 
-    if (activeTab === 'my-bids') {
+    if (activeTab === "my-bids") {
       return myBids.length === 0 ? (
         <div className="text-center py-16">
           <Send className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500 text-lg">You haven't submitted any bids yet</p>
+          <p className="text-gray-500 text-lg">
+            You haven't submitted any bids yet
+          </p>
           <p className="text-gray-400 mt-2">Browse gigs and start bidding!</p>
         </div>
       ) : (
@@ -71,10 +90,12 @@ const Dashboard = () => {
             <div key={bid._id} className="card p-6">
               <div className="mb-4">
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                  {bid.gigId?.title || 'Gig Unavailable'}
+                  {bid.gigId?.title || "Gig Unavailable"}
                 </h3>
                 <div className="flex items-center gap-2">
-                  <span className={`badge badge-${bid.status}`}>{bid.status}</span>
+                  <span className={`badge badge-${bid.status}`}>
+                    {bid.status}
+                  </span>
                 </div>
               </div>
               <p className="text-gray-700 mb-4">{bid.message}</p>
@@ -106,8 +127,8 @@ const Dashboard = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex cursor-pointer items-center gap-2 px-6 py-3 border-b-2 font-medium transition-colors ${
                   activeTab === tab.id
-                    ? 'border-primary-600 text-primary-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                    ? "border-primary-600 text-primary-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700"
                 }`}
               >
                 <Icon className="w-5 h-5" />
