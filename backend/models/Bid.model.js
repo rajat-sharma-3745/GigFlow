@@ -37,6 +37,13 @@ const bidSchema = new mongoose.Schema(
 
 bidSchema.index({ gigId: 1, freelancerId: 1 }, { unique: true });
 bidSchema.index({ gigId: 1, status: 1 });
+bidSchema.index(
+  { gigId: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { status: "hired" }
+  }
+);
 bidSchema.index({ freelancerId: 1 });
 
 const Bid = mongoose.model('Bid', bidSchema);

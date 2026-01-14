@@ -8,7 +8,7 @@ class GigRepository {
 
   async findAll(query = {}, search = '') {
     const filter = { ...query };
-    
+
     if (search) {
       filter.$or = [
         { title: { $regex: search, $options: 'i' } },
@@ -28,11 +28,12 @@ class GigRepository {
       .populate('assignedTo', 'name email');
   }
 
-  async updateStatus(id, status, assignedTo = null) {
+  async updateStatus(id, status, assignedTo = null, session=null) {
     return await Gig.findByIdAndUpdate(
       id,
       { status, assignedTo },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true, ...(session && { session }) }
+
     );
   }
 

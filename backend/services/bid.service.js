@@ -67,16 +67,16 @@ class BidService {
 
   async hireBid(bidId, userId) {
     const session = await mongoose.startSession();
-    session.startTransaction();
-
+    
     try {
-      const bid = await bidRepository.findById(bidId);
+      session.startTransaction();
+      const bid = await bidRepository.findById(bidId,session);
 
       if (!bid) {
         throw new CustomError('Bid not found', 404);
       }
 
-      const gig = await gigRepository.findById(bid.gigId._id);
+      const gig = await gigRepository.findById(bid.gigId._id,session);
 
       if (!gig) {
         throw new CustomError('Gig not found', 404);
@@ -99,7 +99,8 @@ class BidService {
       await gigRepository.updateStatus(
         gig._id,
         GIG_STATUS.ASSIGNED,
-        bid.freelancerId._id
+        bid.freelancerId._id,
+        session
       );
 
       await notificationService.createAndEmitNotification({
